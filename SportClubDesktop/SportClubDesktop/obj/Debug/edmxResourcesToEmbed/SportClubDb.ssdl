@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SportClubModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Competition">
+    <Key>
+      <PropertyRef Name="gkey" />
+    </Key>
+    <Property Name="gkey" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="date" Type="smalldatetime" />
+    <Property Name="cost" Type="money" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="id_gkey" />
+    </Key>
+    <Property Name="id_gkey" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="150" />
+    <Property Name="telephone" Type="varchar" MaxLength="13" />
+  </EntityType>
+  <EntityType Name="Registration">
+    <Key>
+      <PropertyRef Name="fkey_member" />
+      <PropertyRef Name="fkey_competition" />
+    </Key>
+    <Property Name="fkey_member" Type="smallint" Nullable="false" />
+    <Property Name="fkey_competition" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Trainer">
+    <Key>
+      <PropertyRef Name="id_gkey" />
+    </Key>
+    <Property Name="id_gkey" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fio" Type="nvarchar" MaxLength="150" />
+    <Property Name="telephone" Type="varchar" MaxLength="13" />
+    <Property Name="adress" Type="nvarchar" MaxLength="200" />
+    <Property Name="category" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Training">
+    <Key>
+      <PropertyRef Name="date" />
+      <PropertyRef Name="fkey_member" />
+      <PropertyRef Name="fkey_trainer" />
+    </Key>
+    <Property Name="date" Type="smalldatetime" Nullable="false" />
+    <Property Name="fkey_member" Type="smallint" Nullable="false" />
+    <Property Name="fkey_trainer" Type="smallint" Nullable="false" />
+    <Property Name="cost" Type="money" />
+  </EntityType>
+  <Association Name="FK_Registration_Competition">
+    <End Role="Competition" Type="Self.Competition" Multiplicity="1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Competition">
+        <PropertyRef Name="gkey" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="fkey_competition" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Registration_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Registration" Type="Self.Registration" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="id_gkey" />
+      </Principal>
+      <Dependent Role="Registration">
+        <PropertyRef Name="fkey_member" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Training_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Training" Type="Self.Training" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="id_gkey" />
+      </Principal>
+      <Dependent Role="Training">
+        <PropertyRef Name="fkey_member" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Training_Trainer">
+    <End Role="Trainer" Type="Self.Trainer" Multiplicity="1" />
+    <End Role="Training" Type="Self.Training" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trainer">
+        <PropertyRef Name="id_gkey" />
+      </Principal>
+      <Dependent Role="Training">
+        <PropertyRef Name="fkey_trainer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SportClubModelStoreContainer">
+    <EntitySet Name="Competition" EntityType="Self.Competition" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Registration" EntityType="Self.Registration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trainer" EntityType="Self.Trainer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Training" EntityType="Self.Training" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Registration_Competition" Association="Self.FK_Registration_Competition">
+      <End Role="Competition" EntitySet="Competition" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Registration_Member" Association="Self.FK_Registration_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Registration" EntitySet="Registration" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Training_Member" Association="Self.FK_Training_Member">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Training" EntitySet="Training" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Training_Trainer" Association="Self.FK_Training_Trainer">
+      <End Role="Trainer" EntitySet="Trainer" />
+      <End Role="Training" EntitySet="Training" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,24 @@
+﻿<Window x:Class="SportClubDesktop.OtherWindows.Trainers.EditTrainer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SportClubDesktop.OtherWindows.Trainers"
+        mc:Ignorable="d"
+        Title="Edit Trainer" Height="396.993" Width="389.474"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Label Content="Full name: " HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top" Width="77"/>
+        <TextBox x:Name="txtFullName" HorizontalAlignment="Left" Height="53" Margin="92,63,-4,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="273"/>
+        <Label Content="Phone: " HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" Width="77"/>
+        <TextBox x:Name="txtPhone" HorizontalAlignment="Left" Height="26" Margin="92,132,-4,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="273"/>
+        <Label Content="Address: " HorizontalAlignment="Left" Margin="10,175,0,0" VerticalAlignment="Top" Width="77"/>
+        <TextBox x:Name="txtAddress" HorizontalAlignment="Left" Height="26" Margin="92,175,-4,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="273"/>
+        <Label Content="Category: " HorizontalAlignment="Left" Margin="10,217,0,0" VerticalAlignment="Top" Width="77"/>
+        <TextBox x:Name="txtCategory" HorizontalAlignment="Left" Height="26" Margin="92,217,-4,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="273"/>
+        <Button Click="BtnCancel_Click" x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="290,330,-4,0" VerticalAlignment="Top" Width="75"/>
+        <Button Click="BtnSave_Click" x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="210,330,0,0" VerticalAlignment="Top" Width="75"/>
+        <Label Content="Edit trainer's info:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="355" FontSize="24" Height="48"/>
+
+    </Grid>
+</Window>

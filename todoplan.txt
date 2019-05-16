@@ -1,0 +1,4 @@
++ 1. Members (CRUD)
+2. Trainings CRUD + time + select trainer + create schedule
+3. Trainers -> individual schedule of trainings
+4. Competitions -> add participant (member) + create schedule

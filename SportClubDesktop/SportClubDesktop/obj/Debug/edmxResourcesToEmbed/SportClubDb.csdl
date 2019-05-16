@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SportClubModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Competition">
+    <Key>
+      <PropertyRef Name="gkey" />
+    </Key>
+    <Property Name="gkey" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="cost" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Members" Relationship="Self.Registration" FromRole="Competition" ToRole="Member" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="id_gkey" />
+    </Key>
+    <Property Name="id_gkey" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fio" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="telephone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Trainings" Relationship="Self.FK_Training_Member" FromRole="Member" ToRole="Training" />
+    <NavigationProperty Name="Competitions" Relationship="Self.Registration" FromRole="Member" ToRole="Competition" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trainer">
+    <Key>
+      <PropertyRef Name="id_gkey" />
+    </Key>
+    <Property Name="id_gkey" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fio" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="telephone" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="adress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="category" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Trainings" Relationship="Self.FK_Training_Trainer" FromRole="Trainer" ToRole="Training" />
+  </EntityType>
+  <EntityType Name="Training">
+    <Key>
+      <PropertyRef Name="date" />
+      <PropertyRef Name="fkey_member" />
+      <PropertyRef Name="fkey_trainer" />
+    </Key>
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="fkey_member" Type="Int16" Nullable="false" />
+    <Property Name="fkey_trainer" Type="Int16" Nullable="false" />
+    <Property Name="cost" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="Member" Relationship="Self.FK_Training_Member" FromRole="Training" ToRole="Member" />
+    <NavigationProperty Name="Trainer" Relationship="Self.FK_Training_Trainer" FromRole="Training" ToRole="Trainer" />
+  </EntityType>
+  <Association Name="FK_Training_Member">
+    <End Role="Member" Type="Self.Member" Multiplicity="1" />
+    <End Role="Training" Type="Self.Training" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="id_gkey" />
+      </Principal>
+      <Dependent Role="Training">
+        <PropertyRef Name="fkey_member" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Training_Trainer">
+    <End Role="Trainer" Type="Self.Trainer" Multiplicity="1" />
+    <End Role="Training" Type="Self.Training" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trainer">
+        <PropertyRef Name="id_gkey" />
+      </Principal>
+      <Dependent Role="Training">
+        <PropertyRef Name="fkey_trainer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Registration">
+    <End Role="Competition" Type="Self.Competition" Multiplicity="*" />
+    <End Role="Member" Type="Self.Member" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="SportClubEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Competitions" EntityType="Self.Competition" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Trainers" EntityType="Self.Trainer" />
+    <EntitySet Name="Trainings" EntityType="Self.Training" />
+    <AssociationSet Name="FK_Training_Member" Association="Self.FK_Training_Member">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Training" EntitySet="Trainings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Training_Trainer" Association="Self.FK_Training_Trainer">
+      <End Role="Trainer" EntitySet="Trainers" />
+      <End Role="Training" EntitySet="Trainings" />
+    </AssociationSet>
+    <AssociationSet Name="Registration" Association="Self.Registration">
+      <End Role="Competition" EntitySet="Competitions" />
+      <End Role="Member" EntitySet="Members" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
