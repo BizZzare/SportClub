@@ -5,16 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SportClubDesktop.OtherWindows.Trainings"
         mc:Ignorable="d"
-        Title="Add New Training" Height="453.383" Width="386.09"
+        Title="Add New Training" Height="477.383" Width="386.09"
         Loaded="Window_Loaded">
     <Grid>
         <Label Content="Fill the following fields:" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="355" FontSize="24" Height="48"/>
         <Label Content="Date: " HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top" Width="99"/>
-        <DatePicker HorizontalAlignment="Left" Margin="114,59,0,0" VerticalAlignment="Top" Width="251"/>
+        <DatePicker SelectedDateChanged="DtDate_SelectedDateChanged" Name="dtDate" HorizontalAlignment="Left" Margin="114,59,0,0" VerticalAlignment="Top" Width="251"/>
         <Label Content="Time: " HorizontalAlignment="Left" Margin="10,93,0,0" VerticalAlignment="Top" Width="99"/>
-        <ComboBox HorizontalAlignment="Left" Margin="114,93,0,0" VerticalAlignment="Top" Width="113"/>
+        <ComboBox SelectionChanged="CbHours_SelectionChanged" Name="cbHours" HorizontalAlignment="Left" Margin="114,93,0,0" VerticalAlignment="Top" Width="113"/>
         <Label Content=":" HorizontalAlignment="Left" Margin="232,93,0,0" VerticalAlignment="Top" Width="17"/>
-        <ComboBox HorizontalAlignment="Left" Margin="255,93,0,0" VerticalAlignment="Top" Width="113"/>
+        <ComboBox SelectionChanged="CbHours_SelectionChanged" Name="cbMinutes" HorizontalAlignment="Left" Margin="255,93,0,0" VerticalAlignment="Top" Width="113"/>
+        <Label Content="Member: " HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="99"/>
+        <ListBox SelectionChanged="LstMembers_SelectionChanged" Name="lstMembers" SelectionMode="Single" HorizontalAlignment="Left" Height="105" Margin="114,124,0,0" VerticalAlignment="Top" Width="251" />
+        <Label Content="Trainer: " HorizontalAlignment="Left" Margin="10,243,0,0" VerticalAlignment="Top" Width="99"/>
+        <ListBox SelectionChanged="LstMembers_SelectionChanged" x:Name="lstTrainers" SelectionMode="Single" HorizontalAlignment="Left" Height="105" Margin="114,243,0,0" VerticalAlignment="Top" Width="251" />
+        <Label Content="Cost: " HorizontalAlignment="Left" Margin="10,359,0,0" VerticalAlignment="Top" Width="99"/>
+        <TextBox TextChanged="TxtCost_TextChanged" PreviewTextInput="TextBox_PreviewTextInput" Name="txtCost"  HorizontalAlignment="Left" Height="23" Margin="114,359,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="251"/>
+        <Button Click="BtnCancel_Click" Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="288,416,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Click="BtnSave_Click" Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="208,416,0,0" VerticalAlignment="Top" Width="75"/>
 
     </Grid>
 </Window>

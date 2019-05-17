@@ -31,3 +31,11 @@ C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDeskt
 C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Members\EditMember.g.cs
 C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Members\AddNewMember.baml
 C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Members\EditMember.baml
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Trainings\AddNewTraining.g.cs
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Trainings\AddNewTraining.baml
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Trainings\EditTraining.g.cs
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Trainings\EditTraining.baml
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Trainers\TrainerSchedule.g.cs
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Trainers\TrainerSchedule.baml
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Competitions\SignUpMember.g.cs
+C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\obj\Debug\OtherWindows\Competitions\SignUpMember.baml

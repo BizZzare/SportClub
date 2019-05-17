@@ -57,7 +57,14 @@ namespace SportClubDesktop.OtherWindows.Trainers
                     currentTrainer.telephone = txtPhone.Text;
                     currentTrainer.adress = txtAddress.Text;
                     currentTrainer.category = txtCategory.Text;
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The problem with editing occured");
+                    }
                     Close();
                 }
             }

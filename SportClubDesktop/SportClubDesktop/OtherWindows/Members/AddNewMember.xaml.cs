@@ -35,7 +35,14 @@ namespace SportClubDesktop.OtherWindows.Members
             {
                 var member = new Member() { fio = txtFullName.Text, telephone = txtPhone.Text};
                 db.Members.Add(member);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The problem with adding occured");
+                }
                 Close();
             }
         }

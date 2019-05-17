@@ -11,7 +11,9 @@ namespace SportClubDesktop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Globalization;
+    using System.Linq;
+
     public partial class Training
     {
         public System.DateTime date { get; set; }
@@ -21,5 +23,14 @@ namespace SportClubDesktop
     
         public virtual Member Member { get; set; }
         public virtual Trainer Trainer { get; set; }
+
+        public override string ToString()
+        {
+            using (var db = new SportClubEntities())
+            {
+                return $"Date: {date}\nMember: {db.Members.First(x=>x.id_gkey == fkey_member).fio}\nTrainer: {db.Trainers.First(x => x.id_gkey == fkey_trainer).fio}\nCost: {((decimal)cost).ToString("C", CultureInfo.CurrentCulture)}\n";
+
+            }
+        }
     }
 }

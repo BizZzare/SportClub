@@ -1,6 +1,7 @@
 ﻿using SportClubDesktop.OtherWindows.Competitions;
 using SportClubDesktop.OtherWindows.Members;
 using SportClubDesktop.OtherWindows.Trainers;
+using SportClubDesktop.OtherWindows.Trainings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace SportClubDesktop
     /// </summary>
     public partial class MainWindow : Window
     {
+
         #region Common
         public MainWindow()
         {
@@ -35,9 +37,9 @@ namespace SportClubDesktop
             using (var db = new SportClubEntities())
             {
                 lstTrainers.ItemsSource = db.Trainers.ToList();
-                lstCompetitions.ItemsSource = db.Competitions.OrderBy(x=>x.date).ToList();
+                lstCompetitions.ItemsSource = db.Competitions.Where(x=>x.date >= DateTime.Now).OrderBy(x => x.date).ToList();
                 lstMembers.ItemsSource = db.Members.ToList();
-                lstTrainings.ItemsSource = db.Trainings.ToList();
+                lstTrainings.ItemsSource = db.Trainings.Where(x=>x.date >= DateTime.Now).ToList();
 
             }
 
@@ -51,16 +53,20 @@ namespace SportClubDesktop
 
             cbFindHours.ItemsSource = hours;
             cbFindMinutes.ItemsSource = minutes;
+
+            imgBackground.Source = new BitmapImage(new Uri("images/background.jpg", UriKind.Relative));
         }
 
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-          
+
             btnTrainerDelete.IsEnabled = lstTrainers.SelectedItem != null;
             btnTrainerEdit.IsEnabled = lstTrainers.SelectedItem != null;
+            btnTrainerSchedule.IsEnabled = lstTrainers.SelectedItem != null;
 
             btnCompetitionDelete.IsEnabled = lstCompetitions.SelectedItem != null;
             btnCompetitionEdit.IsEnabled = lstCompetitions.SelectedItem != null;
+            btnSignUpForCompetition.IsEnabled = lstCompetitions.SelectedItem != null;
 
             btnMemberDelete.IsEnabled = lstMembers.SelectedItem != null;
             btnMemberEdit.IsEnabled = lstMembers.SelectedItem != null;
@@ -85,6 +91,7 @@ namespace SportClubDesktop
         {
             btnTrainerDelete.IsEnabled = lstTrainers.SelectedItem != null;
             btnTrainerEdit.IsEnabled = lstTrainers.SelectedItem != null;
+            btnTrainerSchedule.IsEnabled = lstTrainers.SelectedItem != null;
         }
         private void BtnAddNewTrainer_Click(object sender, RoutedEventArgs e)
         {
@@ -92,11 +99,11 @@ namespace SportClubDesktop
             window.ShowDialog();
             updateTrainersList();
         }
-       
+
         private void BtnTrainerEdit_Click(object sender, RoutedEventArgs e)
         {
             var selectedTrainer = lstTrainers.SelectedItem as Trainer;
-            if(selectedTrainer != null)
+            if (selectedTrainer != null)
             {
                 var window = new EditTrainer(selectedTrainer);
                 window.ShowDialog();
@@ -107,7 +114,8 @@ namespace SportClubDesktop
         private void BtnTrainerDelete_Click(object sender, RoutedEventArgs e)
         {
             var trainer = lstTrainers.SelectedItem as Trainer;
-            if (trainer != null) {
+            if (trainer != null)
+            {
                 var messageBoxResult = MessageBox.Show($"Are you sure you want to delete \'{trainer.fio}\'?", "Delete Confirmation", MessageBoxButton.YesNoCancel);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
@@ -115,7 +123,14 @@ namespace SportClubDesktop
                     {
                         var trainerToDelete = db.Trainers.First(x => x.id_gkey == trainer.id_gkey);
                         db.Trainers.Remove(trainerToDelete);
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Cannot delete it! Check related trainings");
+                        }
                         updateTrainersList();
                     }
                 }
@@ -131,6 +146,13 @@ namespace SportClubDesktop
                 lstTrainers.ItemsSource = db.Trainers.ToList();
             }
         }
+
+        private void BtnTrainerSchedule_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new TrainerSchedule(lstTrainers.SelectedItem as Trainer);
+            window.Show();
+        }
+
         #endregion
 
         #region Competitions
@@ -179,7 +201,14 @@ namespace SportClubDesktop
                     {
                         var competitionToDelete = db.Competitions.First(x => x.gkey == competition.gkey);
                         db.Competitions.Remove(competitionToDelete);
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Cannot delete it because there are some members who want to participate!");
+                        }
                         updateCompetitionsList();
                     }
                 }
@@ -197,11 +226,16 @@ namespace SportClubDesktop
 
             using (var db = new SportClubEntities())
             {
-                lstCompetitions.ItemsSource = db.Competitions.OrderBy(x => x.date).ToList();
+                lstCompetitions.ItemsSource = db.Competitions.Where(x=>x.date >= DateTime.Now).OrderBy(x => x.date).ToList();
             }
         }
 
-
+        private void BtnSignUpForCompetition_Click(object sender, RoutedEventArgs e)
+        {
+            var window = new SignUpMember(lstCompetitions.SelectedItem as Competition);
+            window.ShowDialog();
+            updateCompetitionsList();
+        }
 
         #endregion
 
@@ -251,7 +285,14 @@ namespace SportClubDesktop
                     {
                         var memberToDelete = db.Members.First(x => x.id_gkey == member.id_gkey);
                         db.Members.Remove(memberToDelete);
-                        db.SaveChanges();
+                        try
+                        {
+                            db.SaveChanges();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Cannot delete it! Check related trainings");
+                        }
                         updateMembersList();
                     }
                 }
@@ -268,7 +309,9 @@ namespace SportClubDesktop
             }
         }
 
-#endregion
+        #endregion
+
+        #region Trainings
         private void DtFindTraining_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             using (var db = new SportClubEntities())
@@ -276,17 +319,24 @@ namespace SportClubDesktop
                 var date = dtFindTraining.SelectedDate;
                 if (date != null)
                 {
-                    if(cbFindHours.SelectedItem != null)
+                    var flag = false;
+                    if (cbFindHours.SelectedItem != null)
                     {
                         var timeSpan = new TimeSpan((int)cbFindHours.SelectedItem, 0, 0);
                         date = ((DateTime)date).Date + timeSpan;
+                        flag = true;
                     }
                     if (cbFindMinutes.SelectedItem != null)
                     {
                         var timeSpan = new TimeSpan(0, (int)cbFindMinutes.SelectedItem, 0);
-                        date = ((DateTime)date).Date + timeSpan;
+                        date = ((DateTime)date) + timeSpan;
+                        flag = true;
                     }
-                    lstTrainings.ItemsSource = db.Trainings.Where(x => x.date == date).OrderBy(x => x.date).ToList();
+                    if (flag)
+                        lstTrainings.ItemsSource = db.Trainings.Where(x => x.date == date).OrderBy(x => x.date).ToList();
+                    else
+                        lstTrainings.ItemsSource = db.Trainings.Where(x => x.date.Year == ((DateTime)date).Year && x.date.Month == ((DateTime)date).Month && x.date.Day == ((DateTime)date).Day).OrderBy(x => x.date).ToList();
+
                 }
             }
         }
@@ -299,20 +349,39 @@ namespace SportClubDesktop
 
         private void BtnAddNewTraining_Click(object sender, RoutedEventArgs e)
         {
-
+            var window = new AddNewTraining();
+            window.ShowDialog();
             updateTrainingsList();
         }
 
         private void BtnTrainingEdit_Click(object sender, RoutedEventArgs e)
         {
-
-            updateTrainingsList();
+            var selectedTraining = lstTrainings.SelectedItem as Training;
+            if (selectedTraining != null)
+            {
+                var window = new EditTraining(selectedTraining);
+                window.ShowDialog();
+                updateTrainingsList();
+            }
         }
 
         private void BtnTrainingDelete_Click(object sender, RoutedEventArgs e)
         {
-
-            updateTrainingsList();
+            var training = lstTrainings.SelectedItem as Training;
+            if (training != null)
+            {
+                var messageBoxResult = MessageBox.Show($"Are you sure you want to delete the training scheduled on {training.date}?", "Delete Confirmation", MessageBoxButton.YesNoCancel);
+                if (messageBoxResult == MessageBoxResult.Yes)
+                {
+                    using (var db = new SportClubEntities())
+                    {
+                        var trainingToDelete = db.Trainings.First(x => x.date == training.date);
+                        db.Trainings.Remove(trainingToDelete);
+                        db.SaveChanges();
+                        updateTrainingsList();
+                    }
+                }
+            }
         }
 
         private void BtnFindByDateDiscardTraining_Click(object sender, RoutedEventArgs e)
@@ -329,8 +398,11 @@ namespace SportClubDesktop
 
             using (var db = new SportClubEntities())
             {
-                lstCompetitions.ItemsSource = db.Trainings.OrderBy(x => x.date).ToList();
+                lstTrainings.ItemsSource = db.Trainings.Where(x=>x.date >= DateTime.Now).OrderBy(x => x.date).ToList();
             }
         }
+
+        #endregion
+
     }
 }

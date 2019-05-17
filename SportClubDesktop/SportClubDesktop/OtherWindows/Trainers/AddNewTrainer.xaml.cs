@@ -35,7 +35,14 @@ namespace SportClubDesktop.OtherWindows.Trainers
             {
                 var trainer = new Trainer() { fio = txtFullName.Text, telephone = txtPhone.Text, adress = txtAddress.Text, category = txtCategory.Text };
                 db.Trainers.Add(trainer);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The problem with adding occured");
+                }
                 Close();
             }
         }

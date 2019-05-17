@@ -44,7 +44,14 @@ namespace SportClubDesktop.OtherWindows.Competitions
             {
                 var competition = new Competition() { date = dtDate.SelectedDate, cost = Convert.ToDecimal(txtCost.Text)};
                 db.Competitions.Add(competition);
-                db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("The problem with adding occured!");
+                }
                 Close();
             }
         }
@@ -67,7 +74,7 @@ namespace SportClubDesktop.OtherWindows.Competitions
 
         private void checkBtnSaveAvailability()
         {
-            if (dtDate.SelectedDate != null && String.IsNullOrEmpty(txtCost.Text))
+            if (dtDate.SelectedDate != null && !String.IsNullOrEmpty(txtCost.Text))
                 btnSave.IsEnabled = true;
         }
     }

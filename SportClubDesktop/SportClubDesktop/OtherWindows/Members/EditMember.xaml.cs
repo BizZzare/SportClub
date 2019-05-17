@@ -46,7 +46,14 @@ namespace SportClubDesktop.OtherWindows.Members
                 {
                     currentMember.fio = txtFullName.Text;
                     currentMember.telephone = txtPhone.Text;
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The problem with editing occured");
+                    }
                     Close();
                 }
             }

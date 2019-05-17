@@ -6,13 +6,17 @@
         xmlns:local="clr-namespace:SportClubDesktop"
         mc:Ignorable="d"
         Title="Sport Club" Height="450" Width="800"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" Icon="images/icon.png">
     <Grid>
         <TabControl TabStripPlacement="Left" Margin="0, 0, 0, 0" SelectionChanged="TabControl_SelectionChanged">
-            <TabItem Name="MainPage" Header="Main Page" Height="84">
+            <TabItem Name="MainPage" Header="Main Page" Height="84" BorderBrush="White">
                 <TabItem.Content>
-                    <TextBlock TextWrapping="WrapWithOverflow">
-                    </TextBlock>
+                    <Grid>
+                        <Image Name="imgBackground" Stretch="UniformToFill" StretchDirection="DownOnly" HorizontalAlignment="Left" Height="413" VerticalAlignment="Top" Width="701" Opacity="0.3"/>
+                        <Label HorizontalContentAlignment="Center" Content="Sport Club" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Height="61" Width="681" FontSize="36" BorderBrush="White" FontWeight="Bold" FontFamily="Wide Latin"/>
+                        <TextBlock Margin="10,174,0,0" TextWrapping="Wrap" Text="The app was designed in order to provide the sport club with all the necessary functional. It includes Soft to manage Trainers, Members, Trainings and Competitions!" VerticalAlignment="Top" Height="229" Width="681" FontSize="18" FontFamily="Stencil"/>
+
+                    </Grid>
                 </TabItem.Content>
             </TabItem>
             <TabItem Name="Trainers" Header="Trainers" Height="84">
@@ -25,6 +29,7 @@
                         <Button Click="BtnAddNewTrainer_Click" Name="btnAddNewTrainer" Content="Add new trainer" HorizontalAlignment="Left" Margin="10,383,0,0" VerticalAlignment="Top" Width="134"/>
                         <Button Click="BtnTrainerEdit_Click" Name="btnTrainerEdit" Content="Edit" HorizontalAlignment="Left" Margin="530,383,0,0" VerticalAlignment="Top" Width="78"/>
                         <Button Click="BtnTrainerDelete_Click" Name="btnTrainerDelete" Content="Delete" HorizontalAlignment="Left" Margin="613,383,0,0" VerticalAlignment="Top" Width="78"/>
+                        <Button Click="BtnTrainerSchedule_Click" Content="Show personal schedule" Name="btnTrainerSchedule" HorizontalAlignment="Left" Margin="260,383,0,0" VerticalAlignment="Top" Width="158"/>
 
                     </Grid>
                 </TabItem.Content>
@@ -54,8 +59,8 @@
                         <Button Click="BtnTrainingEdit_Click" Name="btnTrainingEdit" Content="Edit" HorizontalAlignment="Left" Margin="530,383,0,0" VerticalAlignment="Top" Width="78"/>
                         <Button Click="BtnTrainingDelete_Click" Name="btnTrainingDelete" Content="Delete" HorizontalAlignment="Left" Margin="613,383,0,0" VerticalAlignment="Top" Width="78"/>
                         <Button Click="BtnFindByDateDiscardTraining_Click" Name="btnFindByDateDiscardTraining" Content="Discard" HorizontalAlignment="Left" Margin="616,7,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
-                        <ComboBox Name="cbFindHours" HorizontalAlignment="Left" Margin="453,7,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
-                        <ComboBox Name="cbFindMinutes" HorizontalAlignment="Left" Margin="533,7,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                        <ComboBox SelectionChanged="DtFindTraining_SelectedDateChanged" Name="cbFindHours" HorizontalAlignment="Left" Margin="453,7,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                        <ComboBox SelectionChanged="DtFindTraining_SelectedDateChanged" Name="cbFindMinutes" HorizontalAlignment="Left" Margin="533,7,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
 
                     </Grid>
                 </TabItem.Content>
@@ -71,6 +76,7 @@
                         <Button Click="BtnCompetitionEdit_Click" Name="btnCompetitionEdit" Content="Edit" HorizontalAlignment="Left" Margin="530,383,0,0" VerticalAlignment="Top" Width="78"/>
                         <Button Click="BtnCompetitionDelete_Click" Name="btnCompetitionDelete" Content="Delete" HorizontalAlignment="Left" Margin="613,383,0,0" VerticalAlignment="Top" Width="78"/>
                         <Button Click="BtnFindByDateDiscard_Click" Name="btnFindByDateDiscard" Content="Discard" HorizontalAlignment="Left" Margin="616,7,0,0" VerticalAlignment="Top" Width="75" Height="24"/>
+                        <Button Click="BtnSignUpForCompetition_Click" Name="btnSignUpForCompetition" Content="Sign up a member" HorizontalAlignment="Left" Margin="272,383,0,0" VerticalAlignment="Top" Width="131"/>
 
                     </Grid>
                 </TabItem.Content>

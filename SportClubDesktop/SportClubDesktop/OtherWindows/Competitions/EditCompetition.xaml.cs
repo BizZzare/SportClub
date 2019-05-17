@@ -55,7 +55,14 @@ namespace SportClubDesktop.OtherWindows.Competitions
                     result.date = dtDate.SelectedDate;
                     result.cost = Convert.ToDecimal(txtCost.Text);
 
-                    db.SaveChanges();
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("The problem with editing occured");
+                    }
                     Close();
                 }
             }

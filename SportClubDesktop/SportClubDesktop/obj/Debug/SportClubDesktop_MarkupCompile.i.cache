@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\mykyta.tereshkin\source\repos\SportClub\SportClubDesktop\SportClubDesktop\App.xaml
-8-296221758
+111935794193
 2124833836
-212130139238
+24-648012905
 18667794672
-MainWindow.xaml;OtherWindows\Competitions\AddNewCompetition.xaml;OtherWindows\Competitions\EditCompetition.xaml;OtherWindows\Members\AddNewMember.xaml;OtherWindows\Members\EditMember.xaml;OtherWindows\Trainers\AddNewTrainer.xaml;OtherWindows\Trainers\EditTrainer.xaml;OtherWindows\Trainings\AddNewTraining.xaml;
+MainWindow.xaml;OtherWindows\Competitions\AddNewCompetition.xaml;OtherWindows\Competitions\EditCompetition.xaml;OtherWindows\Competitions\SignUpMember.xaml;OtherWindows\Members\AddNewMember.xaml;OtherWindows\Members\EditMember.xaml;OtherWindows\Trainers\AddNewTrainer.xaml;OtherWindows\Trainers\EditTrainer.xaml;OtherWindows\Trainers\TrainerSchedule.xaml;OtherWindows\Trainings\AddNewTraining.xaml;OtherWindows\Trainings\EditTraining.xaml;
 
-True
+False
 

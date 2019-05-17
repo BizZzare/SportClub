@@ -76,6 +76,9 @@
     <Compile Include="OtherWindows\Competitions\EditCompetition.xaml.cs">
       <DependentUpon>EditCompetition.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OtherWindows\Competitions\SignUpMember.xaml.cs">
+      <DependentUpon>SignUpMember.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OtherWindows\Members\AddNewMember.xaml.cs">
       <DependentUpon>AddNewMember.xaml</DependentUpon>
     </Compile>
@@ -88,8 +91,14 @@
     <Compile Include="OtherWindows\Trainers\EditTrainer.xaml.cs">
       <DependentUpon>EditTrainer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="OtherWindows\Trainers\TrainerSchedule.xaml.cs">
+      <DependentUpon>TrainerSchedule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="OtherWindows\Trainings\AddNewTraining.xaml.cs">
       <DependentUpon>AddNewTraining.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="OtherWindows\Trainings\EditTraining.xaml.cs">
+      <DependentUpon>EditTraining.xaml</DependentUpon>
     </Compile>
     <Compile Include="SportClubDb.Context.cs">
       <AutoGen>True</AutoGen>
@@ -135,6 +144,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="OtherWindows\Competitions\SignUpMember.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OtherWindows\Members\AddNewMember.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -151,7 +164,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="OtherWindows\Trainers\TrainerSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="OtherWindows\Trainings\AddNewTraining.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OtherWindows\Trainings\EditTraining.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -194,6 +215,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="images\background.jpg" />
+    <Resource Include="images\icon.png" />
     <Content Include="SportClubDb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SportClubDb.edmx</DependentUpon>
